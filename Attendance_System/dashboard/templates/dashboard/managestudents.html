@@ -5,60 +5,46 @@
 <div class="dashboard-container">
 
   <!-- Header -->
-  <div class="dashboard-header flex justify-between items-center">
+  <div class="dashboard-header">
     <h2>Manage Students</h2>
-    <a href="#" class="add-student-btn">+ Add Student</a>
+    <a href="{% url 'accounts:add_student' %}" class="add-student-btn">+ Add Student</a>
   </div>
 
   <!-- Students Table -->
-  <div class="bottom-section">
-    <div class="attendance-box">
-      <h3>Student List</h3>
-      <table class="recent-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Course</th>
-            <th>Year</th>
-            <th>Section</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Sample Test Data -->
-          <tr>
-            <td>2025001</td>
-            <td>John</td>
-            <td>A.</td>
-            <td>Doe</td>
-            <td>Computer Science</td>
-            <td>1st</td>
-            <td>A</td>
-            <td>
-              <a href="#" class="edit-btn">Edit</a>
-              <a href="#" class="delete-btn">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <td>2025002</td>
-            <td>Jane</td>
-            <td>B.</td>
-            <td>Smith</td>
-            <td>Information Technology</td>
-            <td>2nd</td>
-            <td>B</td>
-            <td>
-              <a href="#" class="edit-btn">Edit</a>
-              <a href="#" class="delete-btn">Delete</a>
-            </td>
-          </tr>
-          <!-- End Sample Data -->
-        </tbody>
-      </table>
-    </div>
+  <div class="attendance-box">
+    <table class="recent-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Course</th>
+          <th>Year</th>
+          <th>Section</th>
+          <th>Student Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.student_ID }}</td>
+          <td>{{ student.first_name }} {{ student.middle_name }} {{ student.last_name }}</td>
+          <td>{{ student.course.name }}</td>
+          <td>{{ student.year }}</td>
+          <td>{{ student.section }}</td>
+          <td>{{ student.is_regular|title }}</td>
+          <td>
+            <a href="#" class="edit-btn">Edit</a>
+            <a href="#" class="delete-btn">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" class="empty-row">No students found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 
 </div>

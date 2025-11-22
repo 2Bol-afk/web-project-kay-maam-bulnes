@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'accounts.middleware.first_login_middleware.FirstLoginMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'Attendance_System.urls'

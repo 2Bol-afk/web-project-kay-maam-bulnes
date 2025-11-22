@@ -12,3 +12,8 @@ SECTION_CHOICES = (
     ('c', 'C'),
     ('d', 'D'),
 )
+
+STUDENT_STATUS_CHOICES=(
+    ('reg','Regular'),
+    ('irreg','Irregular')
+)

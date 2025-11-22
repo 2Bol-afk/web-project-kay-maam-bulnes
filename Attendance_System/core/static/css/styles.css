@@ -338,19 +338,20 @@
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
-    padding: 20px 20px 20px 20px; /* 20px all sides */
-    width: 600px; /* increased width */
-    height: 400px;
+    margin: 5% auto;  /* closer to top for tall modals */
+    padding: 20px;
+    width: 600px;      /* width of modal */
+    max-height: 90vh;  /* dynamically fits screen height */
     border-radius: 8px;
     position: relative;
+    overflow-y: auto;  /* adds scrollbar if content too tall */
 }
 
 .modal-content input,
 .modal-content select,
 .modal-content textarea {
     width: 100%;
-    padding: 12px; /* slightly bigger inputs */
+    padding: 12px;
     margin-top: 6px;
     margin-bottom: 16px;
     border: 1px solid #ccc;
@@ -364,7 +365,7 @@
 }
 
 .modal-content .btn {
-    padding: 12px 20px; /* larger button */
+    padding: 12px 20px;
     border: none;
     background-color: #4CAF50;
     color: white;

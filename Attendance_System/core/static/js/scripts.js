@@ -1,37 +1,47 @@
 document.addEventListener("DOMContentLoaded", function() {
-
   function openModal(modal) {
+    if (!modal) return;
     modal.style.display = "block";
 
-    // Close button sa sulod ka modal
-    const closeBtn = modal.querySelector(".close, .close-btn");
-    if (closeBtn) {
-      closeBtn.onclick = () => modal.style.display = "none";
-    }
+    // Close buttons inside modal (may be multiple)
+    modal.querySelectorAll(".close, .close-btn").forEach(btn => {
+      btn.addEventListener('click', () => modal.style.display = 'none');
+    });
 
-    // ma close kung pindot outside ka modal
-    window.onclick = function(e) {
-      if (e.target == modal) {
-        modal.style.display = "none";
+    // Close when clicking outside the modal
+    window.addEventListener('click', function onWindowClick(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        window.removeEventListener('click', onWindowClick);
       }
-    }
+    });
   }
 
-  // Ma Open Add Subject modal
-  const addModal = document.getElementById("subjectModal");
-  const openAddBtn = document.getElementById("openModalSubject");
-  openAddBtn.onclick = function(e) {
-    e.preventDefault();
-    openModal(addModal);
+  function attachOpenButton(openBtn, modal) {
+    if (!openBtn || !modal) return;
+    openBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal(modal);
+    });
   }
 
-  //  Ma Open Edit/Delete modals
+  // Add Subject modal (if present)
+  const subjectModal = document.getElementById("subjectModal");
+  const openSubjectBtn = document.getElementById("openModalSubject");
+  attachOpenButton(openSubjectBtn, subjectModal);
+
+  // Assign Teacher modal (if present)
+  const assignModal = document.getElementById("assignModal");
+  const openAssignBtn = document.getElementById("openModalAssign");
+  attachOpenButton(openAssignBtn, assignModal);
+
+  // Edit/Delete modals triggered by data-target attributes
   document.querySelectorAll(".edit-btn, .delete-btn").forEach(btn => {
     btn.addEventListener("click", function(e) {
       e.preventDefault();
       const modalId = btn.dataset.target;
       const modal = document.querySelector(modalId);
-      openModal(modal);
+      if (modal) openModal(modal);
     });
   });
 });
