@@ -18,7 +18,7 @@
       <div class="stat-info">
         <h3>245</h3>
         <p>Total Students</p>
-        <a href="{% url 'dashboard:manage_students' %}" class="view-link">View all</a>
+        <a href="{% url 'accounts:manage_student' %}" class="view-link">View all</a>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
       <div class="stat-info">
         <h3>15</h3>
         <p>Total Teachers</p>
-        <a href="#" class="view-link">View all</a>
+        <a href="{% url 'accounts:manage_teacher' %}" class="view-link">View all</a>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
       <div class="stat-info">
         <h3>230</h3>
         <p>Total Parents</p>
-        <a href="#" class="view-link">View all</a>
+        <a href="{% url 'accounts:manage_parent' %}" class="view-link">View all</a>
       </div>
     </div>
 
@@ -51,7 +51,8 @@
       <div class="stat-info">
         <h3>12</h3>
         <p>Total Subjects</p>
-        <a href="#" class="view-link">View all</a>
+        
+        <a href="{% url 'academics:manage_subjects' %}" class="view-link">View all</a>
       </div>
     </div>
   </div>

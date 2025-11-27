@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
         ('admin','Admin'),
         ('teacher','Teacher'),
         ('student','Student'),
+        ('parent','Parent')
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     first_login = models.BooleanField(default=True)
@@ -15,11 +16,13 @@ class CustomUser(AbstractUser):
 # Parent Profile
 class ParentProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, limit_choices_to={'role':'parent'})
-    name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=50,)
+    middle_name = models.CharField(max_length=50,)
+    last_name = models.CharField(max_length=50,)
     contact_number = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.first_name} {self.last_name}"
 
 # Teacher Profile
 class TeacherProfile(models.Model):

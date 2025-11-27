@@ -1,5 +1,5 @@
 from django import forms
-from .models import TeacherProfile,CustomUser,StudentProfile
+from .models import TeacherProfile,CustomUser,StudentProfile,ParentProfile
 from academics.models import Subject, Semester
 class TeacherUserForm(forms.ModelForm):
     class Meta:
@@ -87,3 +87,29 @@ class StudentProfileForm(forms.ModelForm):
         if (self.initial.get('is_regular') == 'Regular') or (getattr(self.instance, 'is_regular', None) == 'Regular'):
             self.fields['subjects'].initial = list(subjects_qs.values_list('id', flat=True))
 
+class parentUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email']
+        widgets = {
+            'email':forms.EmailInput(attrs={'class': 'form-control'})
+        }
+    def save(self,commit = True):
+        user = super().save(commit=False)
+        user.username = self.cleaned_data['email']
+        user.role = 'parent'
+        if commit:
+            user.save()
+        return user
+    
+class parentProfileForm(forms.ModelForm):
+    class Meta:
+        model  = ParentProfile
+        fields = ['first_name','middle_name','last_name','contact_number']
+        widgets = {
+            'first_name':forms.TextInput(attrs={'class':'form-control'}),
+            'middle_name':forms.TextInput(attrs={'class':'form-control'}),
+            'last_name':forms.TextInput(attrs={'class':'form-control'}),
+            'contact_number':forms.TextInput(attrs={'class':'form-control'})
+        }
+        
